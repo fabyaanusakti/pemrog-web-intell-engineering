@@ -1,0 +1,71 @@
+{% extends 'layout/base.html' %}
+
+{% load static %}
+
+{% block title %} CRUDify {% endblock %}
+
+{% block content %}
+
+<!-- {% block page_name %} Projek {% endblock %} -->
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    {% for field in form %}
+    <div class="mb-3">
+        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+        {{ field }}
+    </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary" style="background-color: #3d5a71; color: white">Simpan</button>
+</form>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="fw-light fs-5">Daftar Projek</h3>
+    <input type="text" id="searchInput" class="form-control form-control-sm w-50" placeholder="Cari disini..."
+        style="border-radius: 15px;">
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr class="text-center table-light">
+            <th>Nama Projek</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for project in projects %}
+        <tr>
+            <td>{{ project.projectname }}</td>
+            <td style="text-align: center;">
+                <a href="#" class="btn btn-sm btn-info" style="background-color: #3d5a71; color: white">Details</a>
+                <a href="{% url 'edit_projek' project.pk %}" class="btn btn-sm btn-info"
+                    style="background-color: #3d5a71; color: white">Edit</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2">
+                <p>list projek kosong</p>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    document.getElementById("searchInput").addEventListener("keyup", function() {
+        let filter = this.value.toLowerCase();
+        let rows = document.querySelectorAll("table tbody tr");
+    
+        rows.forEach(row => {
+            let projectName = row.querySelector("td:first-child").textContent.toLowerCase();
+            row.style.display = projectName.includes(filter) ? "" : "none";
+        });
+    });
+    </script>
+
+{% endblock %}

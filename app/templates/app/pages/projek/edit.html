@@ -1,0 +1,42 @@
+{% extends 'layout/base.html' %}
+
+{% load static %}
+
+{% block title %} CRUDify | Edit Projek {% endblock %}
+
+{% block content %}
+
+<!-- {% block page_name %} Edit Projek {% endblock %} -->
+
+<form method="post">
+  {% csrf_token %}
+
+  {% for field in form %}
+  <div class="mb-3">
+      <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+      {{ field }}
+  </div>
+  {% endfor %}
+  
+  <div class="d-flex justify-content-between">
+    <div>
+      <a href="{% url 'projek' %}" class="btn btn-secondary">Batal</a>
+      <button type="submit" class="btn btn-primary" style="background-color: #3d5a71; color: white">Simpan</button>
+  </div>
+  
+    <button 
+        type="button" 
+        class="btn btn-danger"
+        data-bs-toggle="modal" 
+        data-bs-target="#deleteModal"
+        data-project-id="{{ project.id }}"
+        data-project-name="{{ project.projectname }}"
+    >
+        Hapus
+    </button>
+</div>
+
+</form>
+</div>
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}

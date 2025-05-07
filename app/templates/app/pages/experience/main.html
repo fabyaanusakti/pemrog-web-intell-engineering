@@ -1,0 +1,39 @@
+{% extends 'layout/base.html' %}
+
+
+{% load static %}
+
+{% block title %} CRUDify {% endblock %}
+
+{% block content %}
+
+<!-- {% block page_name %} Intelligence Experience {% endblock %} -->
+
+<form method="post" action="">
+    {% csrf_token %}
+
+    <select name="project" class="form-select mb-2 w-50 shadow-sm border-1" id="project-selector">
+        <option value="" disabled {% if not project %}selected{% endif %}>Pilih Projek</option>
+        {% for proj in projects %}
+            <option value="{{ proj.pk }}" {% if project and proj.pk == project.pk %}selected{% endif %}>
+                {{ proj.projectname }}
+            </option>
+        {% endfor %}
+    </select>
+
+    {% for field in form %}
+    <div class="mb-3">
+        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+        {{ field }}
+    </div>
+    {% endfor %}
+
+    <button type="submit" class="form-submit btn btn-login w-100"
+        style="background-color: #3d5a71; color: white">Simpan</button>
+</form>
+<script>
+    document.getElementById('project-selector').addEventListener('change', function () {
+        window.location.href = `?project=${this.value}`;
+    });
+</script>
+{% endblock %}
