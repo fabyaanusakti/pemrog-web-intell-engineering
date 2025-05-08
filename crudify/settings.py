@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-u!&uop+a@ep&1*znm2le#d3j&ahb7)n%x8j=^%%2hdim*7c71=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["group5.crudify.com"]
+ALLOWED_HOSTS = ["pemrog-web-intell-engineering-production.up.railway.app"]
 
 AUTH_USER_MODEL = 'app.CustomUserProfileModels'
 
