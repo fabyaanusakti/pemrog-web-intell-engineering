@@ -8,8 +8,8 @@ from django.utils import timezone
 # ---- Start of User Profile Models ---- #
 class CustomUserProfileModels(AbstractUser):
     picture = models.ImageField(
-        upload_to='media/', 
-        default='media/default.jpg', 
+        upload_to='images/', 
+        default='images/default.png', 
         verbose_name='Foto Anggota', 
         blank=True, 
         null=True)

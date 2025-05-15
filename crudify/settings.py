@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-u!&uop+a@ep&1*znm2le#d3j&ahb7)n%x8j=^%%2hdim*7c71='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["pemrog-web-intell-engineering-production.up.railway.app"]
+ALLOWED_HOSTS = [] #"pemrog-web-intell-engineering-production.up.railway.app"
 
 AUTH_USER_MODEL = 'app.CustomUserProfileModels'
 

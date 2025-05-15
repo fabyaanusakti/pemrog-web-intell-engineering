@@ -38,7 +38,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="ratio ratio-4x3">
-                            <img id="photo" src="{% if user.picture %}{{ user.picture.url }}{% else %}{% static 'images/default-profile.png' %}{% endif %}" 
+                            <img id="photo" src="{% if user.picture %}{{ user.picture.url }}{% else %}{% static 'images/default.png' %}{% endif %}" 
                                  alt="Your profile picture" class="rounded">
                         </div>
                         <div id="filename-display" class="text-center small text-muted mb-2">
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const fileInput = document.getElementById('file-input');
     const imageData = document.getElementById('image_data');
     const deleteImage = document.getElementById('delete_image');
-    const defaultImage = "{% static 'images/default-profile.png' %}";
+    const defaultImage = "{% static 'images/default.png' %}";
 
     // Access webcam
     function startCamera() {
