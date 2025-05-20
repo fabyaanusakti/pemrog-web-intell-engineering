@@ -4,15 +4,25 @@ from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 from django.urls import reverse
 from django.db.models import Count
-from django.db.models.functions import TruncMonth
 from .forms import *
 from .models import *
-import calendar
 import base64
 import json
 
-def detail(request):
-    return render(request, 'app/pages/details/main.html')
+@login_required
+def detail_projek_view(request, pk):
+    project = get_object_or_404(ProjekModels, pk=pk)
+
+    context = {
+        'project': project,
+        'objective': getattr(project, 'objective', None),
+        'experience': getattr(project, 'experience', None),
+        'implementation': getattr(project, 'implementation', None),
+        'limitation': getattr(project, 'limitation', None),
+        'realization': getattr(project, 'realization', None),
+        'planning': getattr(project, 'planning', None)
+    }
+    return render(request, 'app/pages/details/main.html', context)
 # ---- Start of Homepage Views Controller ---- #
 def home(request):
     # Initialize default values

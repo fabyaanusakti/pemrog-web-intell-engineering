@@ -4,137 +4,52 @@
 
 {% block title %} CRUDify {% endblock %}
 
-<!-- {% block page_name %} Profile {% endblock %} -->
-
 {% block content %}
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
+<div class="p-4 rounded-2 shadow-sm border-2" style="width: 550px;">
+    <h2 class="text-center fw-bold mb-3 fs-4">Profile</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
 
-    {% for field in form %}
-    <div class="mb-3">
-        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-        {{ field }}
-    </div>
-    {% endfor %}
-    
-    <!-- Live Capture Section -->
-    <div class="mb-3">
-        <label for="" class="form-label">Live Capture</label>
-        <div class="row g-3">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="ratio ratio-4x3 mb-4">
-                            <video id="video" autoplay playsinline class="rounded"></video>
-                        </div>
-                        <button type="button" id="capture-btn" class="btn btn-primary w-100 mb-2" style="background-color: #3d5a71; color: white">
-                            <i class="bi bi-camera me-2"></i>Capture Photo
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="ratio ratio-4x3">
-                            <img id="photo" src="{% if user.picture %}{{ user.picture.url }}{% else %}{% static 'images/default.png' %}{% endif %}" 
-                                 alt="Your profile picture" class="rounded">
-                        </div>
-                        <div id="filename-display" class="text-center small text-muted mb-2">
-                            {% if user.picture %}{{ user.picture.name|basename }}{% else %}No image selected{% endif %}
-                        </div>
-                        <button type="button" id="delete-btn" class="btn btn-danger w-100" {% if not user.picture %}disabled{% endif %}>
-                            <i class="bi bi-trash me-2"></i>Delete Image
-                        </button>
-                        <canvas id="canvas" class="d-none"></canvas>
-                    </div>
-                </div>
-            </div>
+        {% for field in form %}
+        <div class="mb-3">
+            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+            {{ field }}
         </div>
-        <input type="hidden" id="image_data" name="image_data">
-        <input type="hidden" id="delete_image" name="delete_image" value="false">
-    </div>
+        {% endfor %}
 
-    <button type="submit" class="form-submit btn btn-login w-100"
-    style="background-color: #3d5a71; color: white">Simpan</button>
-</form>
+        <!-- Live Capture Section -->
+        <div class="mb-3">
+            <label class="form-label">Take Foto</label>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <button type="button" class="btn btn-primary mb-3" style="background-color: #3d5a71; color: white" 
+                                data-bs-toggle="modal"
+                                data-bs-target="#cameraModal">
+                                Buka Kamera
+                            </button>
+                            <div class="ratio ratio-4x3">
+                                <img id="photo"
+                                    src="{% if user.picture %}{{ user.picture.url }}{% else %}{% static 'images/default.png' %}{% endif %}"
+                                    alt="Your profile picture" class="rounded">
+                            </div>
+                            <div id="filename-display" class="text-center small text-muted mb-2">
+                                {% if user.picture %}{{ user.picture.name|basename }}{% else %}No image selected{% endif %}
+                            </div>
+                            <canvas id="canvas" class="d-none"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="image_data" name="image_data">
+        </div>
+        <button type="submit" class="form-submit btn btn-login w-100"
+            style="background-color: #3d5a71; color: white">Simpan</button>
+    </form>
 
-<!-- JavaScript -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const video = document.getElementById('video');
-    const canvas = document.getElementById('canvas');
-    const photo = document.getElementById('photo');
-    const captureBtn = document.getElementById('capture-btn');
-    const deleteBtn = document.getElementById('delete-btn');
-    const fileInput = document.getElementById('file-input');
-    const imageData = document.getElementById('image_data');
-    const deleteImage = document.getElementById('delete_image');
-    const defaultImage = "{% static 'images/default.png' %}";
-
-    // Access webcam
-    function startCamera() {
-        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ 
-                video: { 
-                    width: { ideal: 1280 },
-                    height: { ideal: 720 },
-                    facingMode: 'user' 
-                } 
-            })
-            .then(function(stream) {
-                video.srcObject = stream;
-            })
-            .catch(function(error) {
-                console.error("Error accessing webcam:", error);
-            });
-        }
-    }
-
-    // Stop camera stream
-    function stopCamera() {
-        if (video.srcObject) {
-            video.srcObject.getTracks().forEach(track => track.stop());
-        }
-    }
-
-    // Initialize camera
-    startCamera();
-
-    // Capture image from camera
-    captureBtn.addEventListener('click', function() {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-        
-        const imageUrl = canvas.toDataURL('image/jpeg', 0.9);
-        photo.src = imageUrl;
-        imageData.value = imageUrl;
-        deleteImage.value = "false";
-        deleteBtn.disabled = false;
-        
-        // Stop camera after capture
-        stopCamera();
-    });
-
-    // Delete image
-    deleteBtn.addEventListener('click', function() {
-        photo.src = defaultImage;
-        imageData.value = "";
-        deleteImage.value = "true";
-        deleteBtn.disabled = true;
-        
-        // Clear file input if exists
-        fileInput.value = "";
-    });
-
-    // Restart camera when clicking on the video element
-    video.addEventListener('click', function() {
-        if (!video.srcObject) {
-            startCamera();
-        }
-    });
-});
-</script>
+    <!-- JavaScript -->
+    <script src="{% static 'js/webcam.js' %}"></script>
+</div>
 {% endblock %}

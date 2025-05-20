@@ -28,6 +28,17 @@
         <ul class="list-unstyled">
             <li>
                 {% if request.user.is_authenticated %}
+                <a href="{% url 'home' %}" class="d-block py-1">
+                    Dashboard
+                </a>
+                {% else %}
+                <a href="{% url 'home' %}" class="d-block py-1">
+                    Home
+                </a>
+                {% endif %}
+            </li>
+            <li>
+                {% if request.user.is_authenticated %}
                 <a href="{% url 'projek' %}" class="d-block py-1">
                     Projek
                 </a>

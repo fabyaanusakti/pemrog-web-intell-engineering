@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from .views import *
 
 urlpatterns = [
-    path('details/', detail, name='detail'),
+    path('detail_projek/projek=<int:pk>/', detail_projek_view, name='detail_projek'),
     path('profile/', profile_view, name='profile'),
     # ---- Start of Homepage View Address ---- #
     path('', home, name='home'),
@@ -18,8 +18,8 @@ urlpatterns = [
 
     # ---- Start of Project Page Address ---- #
     path('projek/', projek_view, name='projek'),
-    path('projek/<int:pk>/edit/', edit_projek, name='edit_projek'),
-    path('projek/<int:pk>/delete/', delete_projek, name='projek_delete'),
+    path('projek/projek=<int:pk>/edit/', edit_projek, name='edit_projek'),
+    path('projek/projek=<int:pk>/delete/', delete_projek, name='projek_delete'),
     # ---- End of Project Page Address ---- #
 
     # ---- Start of Meaningfull Objectives Page Address ---- #

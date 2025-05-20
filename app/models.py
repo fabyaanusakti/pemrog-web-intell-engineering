@@ -12,7 +12,8 @@ class CustomUserProfileModels(AbstractUser):
         default='images/default.png', 
         verbose_name='Foto Anggota', 
         blank=True, 
-        null=True)
+        null=True
+    )
     
     def __str__(self):
         return self.username
@@ -171,7 +172,7 @@ class PlanningModels(models.Model):
     project = models.OneToOneField(
         ProjekModels,
         on_delete=models.CASCADE,
-        related_name='Planning',
+        related_name='planning',
         verbose_name='Related Project'
     )
 

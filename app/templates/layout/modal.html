@@ -17,7 +17,39 @@
     </div>
   </div>
 
-  <!-- Delete Modal -->
+
+<!-- Add Project Modal -->
+<div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="projectModalLabel">Tambah Projek</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    {{ form.non_field_errors }}
+
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: #3d5a71; color: white">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+  <!-- Delete Projek Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -37,4 +69,26 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- Camera Modal -->
+<div class="modal fade" id="cameraModal" tabindex="-1" aria-labelledby="cameraModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kamera</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeModalBtn"></button>
+            </div>
+            <div class="modal-body">
+                <div class="ratio ratio-4x3 mb-3">
+                    <video id="video" autoplay playsinline class="rounded w-100 h-100"></video>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button type="button" id="capture-btn" class="btn btn-login w-100" style="background-color: #3d5a71; color: white">
+                        Ambil Foto
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

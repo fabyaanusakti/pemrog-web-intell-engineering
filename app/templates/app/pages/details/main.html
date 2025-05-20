@@ -6,56 +6,74 @@
 
 {% block content %}
 
-<!-- {% block page_name %} Detils {% endblock %} -->
+<div class="p-4 rounded-2 shadow-sm border-2" style="width: 450px;">
+  <h2 class="text-center fw-bold mb-3 fs-4">{{ project.projectname }}</h2>
+  <div class="container pt-5" style="padding-top: 48px;">
+    <h3>Meaningful Objective</h3>
+    {% if objective %}
+    <ul>
+      <li><strong>Organization Objective: </strong>{{ objective.organizational }}</li>
+      <li><strong>Leading Indicator: </strong>{{ objective.leading_indicators }}</li>
+      <li><strong>User Outcomes: </strong>{{ objective.user_outcomes }}</li>
+      <li><strong>Model Properties: </strong>{{ objective.model_properties }}</li>
+    </ul>
+    {% else %}
+    <tr>
+      <td colspan="4">No data available.</td>
+    </tr>
+    {% endif %}
 
-<div class="col-lg-4">
-    <div class="card shadow">
-      <div class="card-header text-center fw-bold">
-        Detail Projek
-      </div>
-      <div class="card-body">
-        <ul class="list-unstyled">
-          <li><strong>Nama Projek:</strong> Atendee</li>
-          <li><strong>PIC:</strong> Manajemen Projek</li>
-          <li><strong>Client:</strong> PT. Pencari Cinta Sejati</li>
-          <li><strong>Status:</strong> Sedang Berlangsung</li>
-        </ul>
-        <div class="d-flex justify-content-between mt-3">
-          <button class="btn btn-primary btn-sm">Update</button>
-          <button class="btn btn-danger btn-sm">Delete</button>
-        </div>
-      </div>
-    </div>
+    <h3>Intelligence Experience</h3>
+    {% if experience %}
+    <ul>
+      <li><strong>Automate:</strong> {{ experience.automate }}</li>
+      <li><strong>Prompt:</strong> {{ experience.prompt }}</li>
+      <li><strong>Annotate:</strong> {{ experience.annotate }}</li>
+      <li><strong>Organization:</strong> {{ experience.organization }}</li>
+      <li><strong>System Objectives:</strong> {{ experience.system_objectives }}</li>
+      <li><strong>Minimize Flaws:</strong> {{ experience.minimize_flaws }}</li>
+      <li><strong>Create Data:</strong> {{ experience.create_data }}</li>
+    </ul>
+    {% else %}
+    <p>No data available.</p>
+    {% endif %}
+
+    <h3>Intelligence Implementation</h3>
+    {% if implementation %}
+    <ul>
+      <li><strong>Business Process:</strong> {{ implementation.business_process }}</li>
+      <li><strong>Technology:</strong> {{ implementation.technology }}</li>
+      <li><strong>Build Process:</strong> {{ implementation.build_process }}</li>
+    </ul>
+    {% else %}
+    <p>No data available.</p>
+    {% endif %}
+
+    <h3>Limitation</h3>
+    {% if limitation %}
+    <p>{{ limitation.limitation }}</p>
+    {% else %}
+    <p>No data available.</p>
+    {% endif %}
+
+    <h3>Realization</h3>
+    {% if realization %}
+    <p>{{ realization.realization }}</p>
+    {% else %}
+    <p>No data available.</p>
+    {% endif %}
+
+    <h3>Planning</h3>
+    {% if planning %}
+    <ul>
+      <li><strong>Deployment:</strong> {{ planning.deployment }}</li>
+      <li><strong>Maintenance:</strong> {{ planning.maintenance }}</li>
+      <li><strong>Operating System:</strong> {{ planning.operating }}</li>
+    </ul>
+    {% else %}
+    <p>No data available.</p>
+    {% endif %}
+
   </div>
-
-  <!-- Right Column: Objectives and Indicators -->
-  <div class="col-lg-8">
-    <div class="card shadow mb-3">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Meaningful Objectives</h5>
-        <div>
-          <button class="btn btn-primary btn-sm">Update</button>
-          <button class="btn btn-danger btn-sm">Delete</button>
-        </div>
-      </div>
-      <div class="card-body">
-        <h6 class="fw-bold">Organizational Objectives</h6>
-        <ul class="list-group mb-3">
-          <li class="list-group-item">Objective 1</li>
-          <li class="list-group-item">Objective 2</li>
-          <!-- Add more as needed -->
-        </ul>
-
-        <h6 class="fw-bold">Leading Indicators</h6>
-        <ul class="list-group">
-          <li class="list-group-item">Indicator 1</li>
-          <li class="list-group-item">Indicator 2</li>
-          <!-- Add more as needed -->
-        </ul>
-      </div>
-    </div>
-  </div>
+</div>
 {% endblock %}
-
-  
-

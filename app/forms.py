@@ -91,7 +91,7 @@ class CustomUserProfileEditForm(UserChangeForm):
 
     picture = forms.ImageField(
         required=False,
-        label='Foto Anggota',
+        label='Unggah Foto',
         widget=forms.FileInput(attrs={
             'class': 'form-control rounded-2 shadow-sm border-1',
         }),
